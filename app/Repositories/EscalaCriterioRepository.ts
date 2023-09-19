@@ -41,11 +41,10 @@ export default class EscalaCriterioRepository  implements ICreate<EscalaCriterio
       const nivelesRiesgo = await this.nivelRiesgoRepo.getAll();
 
       // Paso 2
-      const totalRiesgo = Object.keys(estudio.$attributes).reduce((total, key) => {
-        const criterio = criterios.find(c => c.codigoInterno === key && estudio[key] >= c.rangoDesde && estudio[key] <= c.rangoHasta);
+      const totalRiesgo = Object.keys(estudio).reduce((total, key) => {
+        const criterio = criterios.find(c => c.codigoInterno === key && estudio[key] > c.rangoDesde && estudio[key] <= c.rangoHasta);
         return total + (criterio ? criterio.valor : 0);
       }, 0);
-
       // Paso 3
       const nivelCorrespondiente = nivelesRiesgo.find(nivel => totalRiesgo >= nivel.rangoDesde && totalRiesgo <= nivel.rangoHasta);
 
