@@ -1,8 +1,9 @@
-import { DateTime } from 'luxon'
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { DateTime } from 'luxon'
 
-export default class NivelRiesgo extends BaseModel {
-  public static table = 'nivel_riesgo'
+
+export default class EscalaCriterio extends BaseModel {
+  public static table = 'escala_criterio'
 
   @column({ isPrimary: true })
   public id: number
@@ -17,7 +18,11 @@ export default class NivelRiesgo extends BaseModel {
   public rangoHasta: number
 
   @column()
-  public color: string
+  public valor: number
+
+  @column()
+  public codigoInterno: string
+
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

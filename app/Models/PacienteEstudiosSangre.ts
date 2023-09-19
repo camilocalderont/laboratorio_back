@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import Paciente from './Paciente'
+import NivelRiesgo from './NivelRiesgo'
 
 
 export default class PacienteEstudiosSangre extends BaseModel {
@@ -22,7 +23,7 @@ export default class PacienteEstudiosSangre extends BaseModel {
   public porcentajeOxigeno: number
 
   @column()
-  public nivelRiesgo: string
+  public nivelRiesgoId: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -35,4 +36,10 @@ export default class PacienteEstudiosSangre extends BaseModel {
     foreignKey: 'pacienteId',
   })
   public paciente: BelongsTo<typeof Paciente>
+
+  @belongsTo(() => NivelRiesgo, {
+    localKey: 'id',
+    foreignKey: 'NivelRiesgoId',
+  })
+  public nivel: BelongsTo<typeof NivelRiesgo>
 }
